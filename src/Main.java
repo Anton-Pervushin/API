@@ -5,14 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
+
     private static final String URL = "jdbc:postgresql://localhost/postgres?user=postgres&password=Timon1";
-    private static Connection con;
+
+    private static String conok="Соединение с бд установлено";
+    private static String conerr="Произошла ошибка подключения к бд";
+
     public static void main(String[] args) {
-        try {
-            con = DriverManager.getConnection(URL);
-            con.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        try (Connection connection = DriverManager.getConnection(URL)){
+            System.out.println(String.format("%s",conok));
+        } catch (SQLException e) {
+            System.out.println(String.format("%s",conerr));
+            e.printStackTrace();
         }
     }
 }
